@@ -117,6 +117,26 @@ const result = await freebuff.com.completion({ ... });
 
 if (result.success) {
   console.log('Response:', result.data);
-  console.log('Credits used:', result.usage?.
+  console.log('Credits used:', result.usage?.credits);
+} else {
+  console.error('Error:', result.error);
+}
+```
 
-[FILE_TOO_LARGE]: The combined read_files output exceeded the 100,000 character hard limit. This file was truncated after 2,749 characters. Read it separately or use code_search for the relevant section.
+## Important Notes
+
+1. The integration key (`VLY_INTEGRATION_KEY`) is automatically injected during project creation
+2. All API calls are automatically billed to your deployment based on usage
+3. Must be used in Convex actions with `"use node"` directive
+4. The integration key should never be exposed to the client
+
+## Checking Integration Status
+
+To verify the integration is properly configured:
+
+```typescript
+const hasIntegration = !!process.env.VLY_INTEGRATION_KEY;
+if (!hasIntegration) {
+  console.error("VLY integration key not found");
+}
+```

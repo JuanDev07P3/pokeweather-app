@@ -1,1 +1,16 @@
-[FILE_TOO_LARGE]: The combined read_files output exceeded the 100,000 character hard limit. This file was truncated after 0 characters. Read it separately or use code_search for the relevant section.
+import { typeColor, typeLabel } from "@/services/pokemon";
+import { cn } from "@/lib/utils";
+
+export function TypeBadge({ type, className }: { type: string; className?: string }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white",
+        className,
+      )}
+      style={{ backgroundColor: typeColor(type) }}
+    >
+      {typeLabel(type)}
+    </span>
+  );
+}

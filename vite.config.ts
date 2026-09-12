@@ -60,6 +60,41 @@ export default defineConfig({
           'forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
         },
         // Optimize chunk size
-        chunkFil
-
-[FILE_TOO_LARGE]: The combined read_files output exceeded the 100,000 character hard limit. This file was truncated after 2,448 characters. Read it separately or use code_search for the relevant section.
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
+      },
+    },
+    // Increase chunk size warning limit for better chunking
+    chunkSizeWarningLimit: 1000,
+    // Target modern browsers for better optimization
+    target: 'esnext',
+    // Minify options - using esbuild (faster than terser)
+    minify: 'esbuild',
+  },
+  // Optimize dependencies
+  optimizeDeps: {
+    // Only scan the app entry HTML; avoids crawling unrelated *.html files
+    // if a legacy snapshot accidentally contains leaked package folders.
+    entries: ['index.html'],
+    include: [
+      'react',
+      'react/jsx-runtime',
+      'react-dom',
+      'react-dom/client',
+      'react-router',
+      '@convex-dev/auth/react',
+      'framer-motion',
+    ],
+  },
+  // Performance hints
+  server: {
+    // Bind to all interfaces so the browser runtime's server-ready event fires.
+    host: true,
+    port: 5173,
+    // Keep HMR on, but disable full-screen error overlay
+    hmr: {
+      overlay: false,
+    },
+  },
+});

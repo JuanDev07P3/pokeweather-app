@@ -1,9 +1,20 @@
-name: Build APK
+name: Build APK (flutter_app)
+
+# Versión para cuando subes el PROYECTO COMPLETO a GitHub (flutter_app/ es
+# una subcarpeta). Si en cambio hiciste de flutter_app/ la raíz del repo,
+# se usa .github/workflows/build-apk.yml y esta no se ejecuta.
 
 on:
   push:
     branches: [main]
+    paths:
+      - "flutter_app/**"
+      - ".github/workflows/build-flutter-apk.yml"
   workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: flutter_app
 
 jobs:
   build:
@@ -38,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pokeclima-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: flutter_app/build/app/outputs/flutter-apk/app-release.apk
